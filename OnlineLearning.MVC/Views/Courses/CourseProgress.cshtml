@@ -1,0 +1,28 @@
+﻿@model List<OnlineLearning.Service.ViewModels.ProgressTrackingViewModel>
+
+<h2>Progress Tracking for Course</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Progress (%)</th>
+            <th>Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var progress in Model)
+        {
+            <tr>
+                <td>
+                    <!-- Make Student Name Clickable to View Assignments -->
+                    <a asp-action="ViewStudentAssignments" asp-route-courseId="@progress.CourseId" asp-route-userId="@progress.UserId">
+                        @progress.UserName
+                    </a>
+                </td>
+                <td>@Math.Round(progress.ProgressPercentage, 2) %</td> <!-- Round percentage here -->
+                <td>@(progress.IsCompleted ? "Yes" : "No")</td>
+            </tr>
+        }
+    </tbody>
+</table>

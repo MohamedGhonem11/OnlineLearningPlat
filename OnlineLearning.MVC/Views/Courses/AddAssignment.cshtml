@@ -1,0 +1,23 @@
+﻿@model AssignmentViewModel
+
+<h2>Add Assignment</h2>
+
+<form asp-action="AddAssignment">
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DueDate"></label>
+        <input asp-for="DueDate" type="date" class="form-control" />
+        <span asp-validation-for="DueDate" class="text-danger"></span>
+    </div>
+    <input type="hidden" asp-for="CourseId" />
+    <button type="submit" class="btn btn-primary">Add Assignment</button>
+</form>

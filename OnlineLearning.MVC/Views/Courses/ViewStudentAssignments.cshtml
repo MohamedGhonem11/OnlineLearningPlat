@@ -1,0 +1,30 @@
+﻿@model List<OnlineLearning.Service.ViewModels.AssignmentProgressViewModel>
+
+<h2>Assignments for Student</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Assignment Title</th>
+            <th>Description</th>
+            <th>Completed</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var assignment in Model)
+        {
+            <tr>
+                <td>@assignment.AssignmentTitle</td>
+                <td>@assignment.Description</td>
+                <td>
+                    <form asp-action="UpdateAssignmentProgress" method="post">
+                        <input type="hidden" name="progressId" value="@assignment.ProgressId" />
+                        <input type="hidden" name="courseId" value="@assignment.CourseId" />
+                        <input type="hidden" name="userId" value="@assignment.UserId" />
+                        <input type="checkbox" name="isCompleted" value="true" @(assignment.IsCompleted ? "checked" : "") onchange="this.form.submit();" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

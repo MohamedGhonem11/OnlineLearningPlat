@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Course>
+
+@{
+    ViewData["Title"] = "Available Courses";
+}
+
+<div class="container mt-4">
+    <h2>Available Courses</h2>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <!-- Search Bar -->
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="input-group">
+            <input type="text" name="searchString" class="form-control" placeholder="Search courses..." aria-label="Search courses" />
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+    </form>
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var course in Model)
+            {
+                <tr>
+                    <td>@course.Title</td>
+                    <td>@course.Description</td>
+                    <td>@course.StartDate.ToShortDateString()</td>
+                    <td>@course.EndDate.ToShortDateString()</td>
+                    <td>
+                        <form asp-action="Enroll" method="post" asp-route-courseId="@course.Id" class="d-inline">
+                            <button type="submit" class="btn btn-primary">Enroll</button>
+                        </form>
+
+                        <!-- Details Button -->
+                        <a asp-action="Details" asp-route-id="@course.Id" class="btn btn-info d-inline">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

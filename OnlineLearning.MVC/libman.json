@@ -1,0 +1,31 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "wow@1.1.2",
+      "destination": "wwwroot/lib/wow/",
+      "files": [
+        "wow.min.js"
+      ]
+    },
+    {
+      "library": "waypoints@4.0.1",
+      "destination": "wwwroot/lib/waypoints/",
+      "files": [
+        "noframework.waypoints.min.js"
+      ]
+    },
+    {
+      "library": "owl-carousel@1.3.3",
+      "destination": "wwwroot/lib/owl-carousel/",
+      "files": [
+        "owl.carousel.min.js"
+      ]
+    },
+    {
+      "library": "jquery-easing@1.4.1",
+      "destination": "wwwroot/lib/jquery-easing/"
+    }
+  ]
+}

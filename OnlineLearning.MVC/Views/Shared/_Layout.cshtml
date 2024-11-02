@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OnlineLearning.MVC</title>
+    @*     <link rel="stylesheet" href="~/css/BootsWatchStyle.css" />
+    *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/OnlineLearning.MVC.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Owl Carousel CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+            <div class="container-fluid">
+                <!-- Brand with logo -->
+                <a class="navbar-brand d-flex align-items-center px-4 px-lg-5" asp-area="" asp-controller="Home" asp-action="Index">
+                    <h2 class="m-0 text-primary">
+                        <i class="fa fa-book me-3"></i>OnlineLearning
+                    </h2>
+                </a>
+                <!-- Toggler button for mobile view -->
+                <button class="navbar-toggler me-4" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Navbar links and login/logout section -->
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <div class="navbar-nav ms-auto p-4 p-lg-0">
+                        <!-- Centered Links -->
+                        <a class="nav-item nav-link active" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                        <!-- Student Links -->
+                        @if (User.IsInRole("Student"))
+                        {
+                            <a class="nav-item nav-link" asp-area="" asp-controller="Enrollments" asp-action="Index">Available Courses</a>
+                            <a class="nav-item nav-link" asp-controller="Enrollments" asp-action="MyCourses">My Courses</a>
+                        }
+
+                        <!-- Instructor Links -->
+                        @if (User.IsInRole("Instructor"))
+                        {
+                            <a class="nav-item nav-link" asp-controller="Courses" asp-action="ManageCourses">Courses</a>
+                            <a class="nav-item nav-link" asp-controller="Courses" asp-action="InstructorCourses">Track Progress</a>
+                        }
+
+                        <!-- Additional Links (optional dropdown) -->
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
+                            <div class="dropdown-menu fade-down m-0">
+                                <a asp-controller="Teams" asp-action="Index" class="dropdown-item text-primary">Our Team</a>
+                                <a asp-controller="Testimonials" asp-action="Index" class="dropdown-item text-primary">Testimonial</a>
+                                <a asp-controller="AboutAs" asp-action="Index" class="dropdown-item text-primary">About US</a>
+                            </div>
+                        </div>
+                        <a class="nav-item nav-link" asp-controller="Contact" asp-action="Index">Contact Us</a>
+                    </div>
+
+                    <div class="d-flex justify-content-end">
+                        <partial name="_LoginPartial" />
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid">
+        <div class="row">
+            @if (User.IsInRole("Admin"))
+            {
+                <!-- Sidebar for Admin -->
+                <nav id="admin-sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+                    <div class="position-sticky">
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-area="" asp-controller="Roles" asp-action="Index">
+                                    <i class="bi bi-people-fill"></i>
+                                    Roles
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Users" asp-action="Index">
+                                    <i class="bi bi-person-fill"></i>
+                                    Users
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Courses" asp-action="Index">
+                                    <i class="bi bi-book"></i>
+                                    Courses
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="" asp-controller="Courses" asp-action="Create">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Add Course
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- Main content for Admin (9-column width) -->
+                <main role="main" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+                    @RenderBody()
+                </main>
+            }
+            else
+            {
+                <!-- Main content for non-admin users (Full-width) -->
+                <main role="main" class="col-12">
+                    @RenderBody()
+                </main>
+            }
+        </div>
+    </div>
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <!-- Custom script for Owl Carousel initialization -->
+    <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                loop: true,
+                margin: 10,
+                nav: true,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                smartSpeed: 1000,
+                navText: ['<span class="owl-prev">&#10094;</span>', '<span class="owl-next">&#10095;</span>'],
+                items: 1
+            });
+        });
+    </script>
+    <script src="~/js/site.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

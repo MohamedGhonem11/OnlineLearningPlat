@@ -1,0 +1,26 @@
+﻿@model List<OnlineLearning.Service.ViewModels.CourseEnrollmentViewModel>
+
+<h2>Manage Your Courses</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Course Title</th>
+            <th>Enrolled Students</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var course in Model)
+        {
+            <tr>
+                <td>@course.CourseTitle</td>
+                <td>@course.StudentCount</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="AddAssignment" asp-route-courseId="@course.CourseId">Add Assignment</a>
+                    <a class="btn btn-secondary" asp-action="ManageAssignments" asp-route-courseId="@course.CourseId">Manage Assignments</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

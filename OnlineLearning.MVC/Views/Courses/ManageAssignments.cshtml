@@ -1,0 +1,28 @@
+﻿@model List<OnlineLearning.Entity.Entities.Assignment>
+
+<h2>Manage Assignments for @ViewBag.CourseTitle</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Assignment Title</th>
+            <th>Description</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var assignment in Model)
+        {
+            <tr>
+                <td>@assignment.Title</td>
+                <td>@assignment.Description</td>
+                <td>
+                    <a class="btn btn-secondary" asp-action="EditAssignment" asp-route-assignmentId="@assignment.Id">Edit</a>
+                    <a class="btn btn-danger" asp-action="DeleteAssignment" asp-route-assignmentId="@assignment.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a class="btn btn-primary" asp-action="AddAssignment" asp-route-courseId="@ViewBag.CourseId">Add New Assignment</a>
